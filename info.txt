@@ -1,0 +1,15 @@
+Beachtete Optionseinträge:
+--------------------------
+
+Name   : appendoutfile
+Aufgabe: definiert, ob neue Werte an eine bereits vorhandene Ausgabedatei angehängt werden sollen
+Beachte: ist der Wert "true" (ohne Anführungsstriche) so ist die Einstellung aktiv, ansonsten nicht
+
+Name   : infile
+Aufgabe: definiert die Eingabedatei
+
+Name   : outfile
+Aufgabe: definiert die Ausgabedatei
+
+Name   : print
+Aufgabe: gibt einen Wert in einer MessageBox aus (nur zum Testzweck)
