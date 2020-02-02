@@ -1,0 +1,9 @@
+@<QUEACKenter>@
+@This Script takes your input and afterwards uses it as often as you wish@
+
+{
+0>,
+
+9>. $*, { 8;. 7;. 6;. 5;. 4;. 3;. 2;. 1;. 9>. }
+a_. a*, { 8). 7). 6). 5). 4). 3). 2). 1). 9>, b#, b=, { 9>. a>$ }}
+}

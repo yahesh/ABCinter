@@ -1,0 +1,20 @@
+@<BinaryValue>@
+@This Script reads a number and then writes the number's binary representation@
+
+{
+0>,
+
+9>.
+
+$=, { A>1 B>2 C>3 D>4 E>5 F>6 G>7 H>8 }
+$=, { 1>. 2>. 3>, 4>, 5>. 6>. 7>. 8>. }
+
+$=, { 8>A 9>, }
+$=, { 8>B 9>, }
+$=, { 8>C 9>, }
+$=, { 8>D 9>, }
+$=, { 8>E 9>, }
+$=, { 8>F 9>, }
+$=, { 8>G 9>, }
+$=, { 8>H 9>, }
+}

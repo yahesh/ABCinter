@@ -1,0 +1,9 @@
+@<EndlessRead>@
+@This Script will read as long as reading succeeds@
+
+{
+0>,
+
+$>,
+$*, { 9>. $=, { 9>, }}
+}

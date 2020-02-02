@@ -1,0 +1,5 @@
+@<HookUp>@
+@This Script does nothing but keep your PC working endlessly@
+@DOESN'T WORK SINCE VERSION 0.20@
+
+{a{$>,$*,{$;,}}b{$>,$*,{$:,}}$>,$*,{a&b&$>,}}

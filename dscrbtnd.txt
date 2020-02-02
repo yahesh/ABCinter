@@ -1,0 +1,781 @@
+AlPhAbEt 0.24
+=============
+Bei "AlPhAbEt" handelt es sich um eine Programmiersprache, deren Fähigkeiten sich hauptsächlich auf die binäre Datenbearbeitung beschränken.
+Sie basiert auf so genannten Registern, welche ausschließlich binäre Werte (d.h. "0" oder "1") aufnehmen können.
+AlPhAbEt beschränkt sich nicht auf eine Notation - stattdessen ist es möglich, sowohl, die Präfix-, Infix-, als auch die Postfix-Schreibweise zu verwenden.
+Die Infix-Form ("[Typ] Register Operator [Typ] Wert") ist jedoch aufgrund der einfacheren Lesbarkeit zu bevorzugen.
+
+
+Inhalt:
+=-=-=-=
++ Kommentare
+   + Optionsblöcke
++ Register
+   + Blockregister
+   + Datenregister
+   + Flagregister
+   + Funktionsregister
+   + Optionsregister
++ Blöcke (Registerebenen)
++ Kombinationen
+   + Monoexekutive Kombinationen
+   + Polyexekutive Kombinationen
+      + Dynamische polyexekutive Kombinationen
+      + Statische polyexekutive Kombinationen
+      + Polyexekutive Kombinationen aufrufen
++ Zuweisungsoperatoren
+   + Zuweisungen
+   + NOT-Zuweisungen
++ Vergleichsoperatoren
+   + Wenn-Abfragen
+   + NOT-Wenn-Abfragen
++ Speicheroperatoren
+   + Hinzufügen-Anweisungen
+   + Entfernen-Anweisungen
+   + Verschieben-Anweisungen
+      + vordersten Eintrag verschieben
+      + hintersten Eintrag verschieben
+   + Prüfen-Anweisungen
+      + ist Speicher leer
+      + ist Eintrag zuerst eingefügter Eintrag
++ Binäroperatoren
+   + Und-Anweisungen
+   + Oder-Anweisungen
+   + XOder-Anweisungen
++ Kommentiertes Quelltextbeispiel ("Editor")
+
+
+Kommentare:
+=-=-=-=-=-=
+"@" (ASCII: 064)
+
+Kommentare sind überall innerhalb des Quelltextes erlaubt.
+Sie beginnen mit einem Kommentarzeichen und enden mit einem Kommentarzeichen.
+Wichtig ist, zu beachten, dass Kommentare nicht ineinander verschachtelt werden können.
+
+Beispiel: 1.)     @irgendein Text@
+          2.)     @irgendein Text@@noch irgendein Text@
+          3.)     @@
+
+
+Optionsblöcke:
+--------------
+"\" (ASCII: 092)
+">" (ASCII: 062)
+"<" (ASCII: 060)
+"/" (ASCII: 047)
+
+Optionsblöcke bieten die Möglichkeit, dem Interpreter/Compiler zusätzliche Informationen zu liefern.
+Sie werden durch eine direkte Kombination von dem Kommentarzeichen "@" (ASCII: 064) und dem Optionsblock-Markierungszeichen "\" (ASCII: 092) eingeleitet und enden nach einem weiteren Kommentarzeichen.
+Einträge werden mit dem Eintragsnamen eingeleitet.
+Danach folgt das Wertanfangszeichen ">" (ASCII: 062), gefolgt vom Wertinhalt.
+Abgeschlossen wird ein Eintrag mit dem Wertendezeichen "<" (ASCII: 060).
+Es können beliebig viele verschiedene Einträge definiert werden und bereits definierte Einträge können neu definiert werden.
+Während der Ausführung gilt der im Moment definierte Wert.
+Sowohl der Wertname, als auch der Wertinhalt, kann sogenannte WhiteMark-Zeichen "/" (ASCII: 047) enthalten.
+Diese sind dafür gedacht, auch Zeichen im Namen und im Inhalt benutzen zu können, denen eigentlich eine andere Aufgabe zugeteilt ist.
+Um es zu benutzen, schreibt man zuerst das WhiteMark-Zeichen gefolgt von dem gewünschten Zeichen.
+Das WhiteMark-Zeichen selbst, wird dabei nicht im Namen oder Inhalt auftauchen.
+Um dies zu erreichen, muss zweimal hintereinander das WhiteMark-Zeichen stehen, damit das erste das zweite schützt.
+
+Beispiel: 1.)     @\EintragA>WertA<@
+          2.)     @\EintragA>WertA<EintragB>WertB<@
+          3.)     @\EintragA>/> /> /@ /@ // // WertA // // /@ /@ /< /<<@
+
+
+Register:
+=-=-=-=-=
+Für jede Registerebene existieren 65 einzeln ansprechbare Register, wobei 1 von ihnen als Blockregister, 2 als Flagregister, 10 als Funktionsregister und insgesamt 52 als Datenregister fungieren.
+Auf JEDES Register kann JEDE Art von Operand angewandt werden, ungeachtet der eigentlichen Aufgabe des Registers.
+Ein Register kann entweder den Wert "." (ASCII: 046) [= "0"] oder der Wert "," (ASCII: 044) [= "1"] beinhalten - andere Werte sind NICHT möglich.
+Alle Register werden standardmäßig mit dem Wert 0 initialisiert.
+Weiterhin existiert noch der Zufallswert "?" (ASCII: 063), welcher bei jeder Benutzung entweder eine 0 oder eine 1 repräsentiert.
+
+
+Blockregister:
+--------------
+"|" (ASCII: 124)
+
+Mit dem Blockregister wird festgelegt, ob die Registerebene eines Blocks speicherresidual sein soll.
+Hierfür muss jeweils das lokale Blockregister gesetzt werden.
+("0" = "nicht speicherresidual" ; "1" = "speicherresidual")
+Die Registerwerte einer speicherresidualen Registerebene werden auch nach dem Verlassen des Blockes gespeichert.
+Sollte die entsprechende Ebene danach wieder erreicht werden, so gelten die vorher gespeicherten Registerwerte weiter.
+
+
+Datenregister:
+--------------
+"A" (ASCII: 065)
+"B" (ASCII: 066)
+"C" (ASCII: 067)
+"D" (ASCII: 068)
+"E" (ASCII: 069)
+"F" (ASCII: 070)
+"G" (ASCII: 071)
+"H" (ASCII: 072)
+"I" (ASCII: 073)
+"J" (ASCII: 074)
+"K" (ASCII: 075)
+"L" (ASCII: 076)
+"M" (ASCII: 077)
+"N" (ASCII: 078)
+"O" (ASCII: 079)
+"P" (ASCII: 080)
+"Q" (ASCII: 081)
+"R" (ASCII: 082)
+"S" (ASCII: 083)
+"T" (ASCII: 084)
+"U" (ASCII: 085)
+"V" (ASCII: 086)
+"W" (ASCII: 087)
+"X" (ASCII: 088)
+"Y" (ASCII: 089)
+"Z" (ASCII: 090)
+"a" (ASCII: 097)
+"b" (ASCII: 098)
+"c" (ASCII: 099)
+"d" (ASCII: 100)
+"e" (ASCII: 101)
+"f" (ASCII: 102)
+"g" (ASCII: 103)
+"h" (ASCII: 104)
+"i" (ASCII: 105)
+"j" (ASCII: 106)
+"k" (ASCII: 107)
+"l" (ASCII: 108)
+"m" (ASCII: 109)
+"n" (ASCII: 110)
+"o" (ASCII: 111)
+"p" (ASCII: 112)
+"q" (ASCII: 113)
+"r" (ASCII: 114)
+"s" (ASCII: 115)
+"t" (ASCII: 116)
+"u" (ASCII: 117)
+"v" (ASCII: 118)
+"w" (ASCII: 119)
+"x" (ASCII: 120)
+"y" (ASCII: 121)
+"z" (ASCII: 122)
+
+In diesen Registern werden Daten zur weiteren Bearbeitung gespeichert.
+
+
+Flagregister:
+-------------
+"$" (ASCII: 036)
+"~" (ASCII: 126)
+
+Durch die Flagregister werden bestimmte Gegebenheiten angezeigt.
+Das Funktionsflagregister "$" (ASCII: 036) zeigt an, ob eine Lese-/Schreibe-Aktion funktioniert hat oder nicht.
+("0" = "hat nicht funktioniert" ; "1" = "hat funktioniert")
+Das Blockflagregister "~" (ASCII: 126) zeigt an, ob zurzeit lokale Register zur Verfügung stehen.
+("0" = "sind nicht verfügbar" ; "1" = "sind verfügbar")
+Die Werte dieser Register werden automatisch im Verlaufe eines Skriptes gesetzt und sind deshalb zur Datenspeicherung nicht geeignet.
+
+
+Funktionsregister:
+------------------
+"0" (ASCII: 048)
+"1" (ASCII: 049)
+"2" (ASCII: 050)
+"3" (ASCII: 051)
+"4" (ASCII: 052)
+"5" (ASCII: 053)
+"6" (ASCII: 054)
+"7" (ASCII: 055)
+"8" (ASCII: 056)
+"9" (ASCII: 057)
+
+Diese Register haben die Aufgabe, die Ein-/Ausgabe zu regeln.
+Die Parameterregister "1" (ASCII: 049), "2" (ASCII: 050), "3" (ASCII: 051), "4" (ASCII: 052), "5" (ASCII: 053), "6" (ASCII: 054), "7" (ASCII: 055) und "8" (ASCII: 056) beinhalten das derzeit ein-/ausgegebene ASCII-Zeichen, wobei das Register "1" das höchstwertige Bit und das Register "8" das niedrigstwertige Bit enthält.
+Das Mediumregister "0" (ASCII: 048) gibt an, welches Medium benutzt wird.
+("0" = "Datei" ; "1" = "Bildschirm")
+Das Aktionsregister "9" (ASCII: 057) gibt an, was ausgeführt wird.
+("0" = "lesen" ; "1" = "schreiben")
+Sobald das Aktionsregister gesetzt wird, wird auch die entsprechende Aktion ausgeführt.
+Beim Ausführen einer Ein-/Ausgabe wird das Funktionsflagregister neu gesetzt.
+
+
+Optionsregister:
+--------------
+"\" (ASCII: 092)
+
+Das Optionsregister hat die Aufgabe, es zu ermöglichen, auch quelltextseitig Optionsblöcke zu schreiben und auszuführen.
+Die Eingabe des Optionsblockes funktioniert über die Funktionsregister "1" bis "8", wobei das Register "1" das höchstwertige Bit und das Register "8" das niedrigstwertige Bit enthält.
+Um den derzeitigen Optionsblock zu bearbeiten, müssen die das Optionsregister "\" (ASCII: 092) neu setzen.
+("0" = "ausführen und leeren" ; "1" = "aktuelles Zeichen hinzufügen")
+Wichtig ist dabei, zu beachten, dass ein quelltextseitiger Optionsblock NICHT mit dem Optionsblock-Markierungszeichen eingeleitet werden darf.
+
+
+Blöcke (Registerebenen):
+=-=-=-=-=-=-=-=-=-=-=-=-
+Blöcke repräsentieren jeweils einen neuen lokalen Satz Register.
+Die Werte der jeweiligen lokalen Register stehen nur im jeweiligen Block zur Verfügung.
+Ein Block wird mit einem "[" (ASCII: 091) begonnen und mit einem "]" (ASCII: 093) wieder beendet.
+Sie können ineinander verschachtelt sein und sind vor allem bei Rekursionen hilfreich.
+Um ein lokales Register anzusprechen, muss dem entsprechenden Registerbezeichner ein "^" (ASCII: 094) vorangestellt werden.
+Beim Betreten oder Verlassen eines Blockes wird das Blockflagregister neu gesetzt.
+
+Beispiel: 1.)     []
+          2.)     [[]]
+          3.)     [^a>.]
+          4.)     [[^a>.]]
+          5.)     [^a>.[^a>.]]
+          6.)     [
+          7.)     ]
+
+
+Kombinationen:
+=-=-=-=-=-=-=-
+Bei Kombinationen handelt es sich um eine Zusammenfassung mehrerer Befehle zu einer Einheit.
+Man unterscheidet dabei zunächst zwei Sorten von Kombinationen:
+monoexekutive und polyexekutive Kombinationen.
+Sie beginnen allgemein mit einem "{" (ASCII: 123) und enden mit einem "}" (ASCII: 125).
+Innerhalb von Kombinationen existieren Parameterregister.
+Es kann dabei auf zwei Typen von Parameterregistern zugegriffen werden: die Parameter der aktuellen Kombination und die der folgenden Kombination (d.h. der Kombination, die von der aktuellen Kombination aus aufgerufen werden kann).
+Durch den Zugriff auf die Parameter der folgenden Kombination handelt es sich um eine Art Referenzparameter (d.h. sollte die aufgerufene Kombination ihre eigenen Parameter ändern, so kann die aufrufende Kombination die geänderten Werte lesen).
+Auf die Parameterregister der aktuellen Kombination greift man über "'" (ASCII: 039), gefolgt vom gewünschten Registerbezeichner, zu.
+Auf die Parameterregister der nächsten Kombination greift man über """ (ASCII: 034), gefolgt vom gewünschten Registerbezeichner, zu.
+
+Beispiel: 1.)     {"a>,{'a=,'a>.}"a=.{0>,1>,9>,}}
+
+
+Monoexekutive Kombinationen:
+----------------------------
+Monoexekutive Kombinationen sind Kombinationen, die jeweils nur einmal während eines Skriptes ausgeführt werden können.
+Sie werden z.B. für Abfragen und Schleifen benötigt, können jedoch auch losgelöst im Quelltext auftreten, um diesen z.B. lesbarer zu machen.
+Sie werden direkt beim Antreffen im Quelltext ausgeführt.
+Jedes gültige Script besteht mindestens aus einer monoexekutiven Kombination, der so genannten "Main-Kombination".
+
+Beispiel: 1.)     {}
+          2.)     {{}}
+
+
+Polyexekutive Kombinationen:
+----------------------------
+Polyexekutive Kombinationen unterscheiden sich in dem Fakt von monoexekutiven Kombinationen, als dass sie in einem Script mehrfach aufgerufen werden können.
+Daher werden sie nicht direkt beim Antreffen ausgeführt, sondern nur definiert.
+Alle polyexekutiven Kombinationen werden standardmäßig als leere Kombinationen initialisiert.
+Sie müssen später über einen Befehl aufgerufen werden.
+Um sie von monoexekutiven Kombinationen zu unterscheiden, wird ihnen der Name eines gültigen globalen Registers vorangestellt, über das sie auch später beim Aufruf referenziert werden.
+Diese Art der Kombination unterscheidet sich wiederum in zwei Unterarten:
+den dynamischen und den statischen polyexekutiven Kombinationen.
+
+Beispiel: 1.)     a{}
+
+
+Dynamische polyexekutive Kombinationen:
+- - - - - - - - - - - - - - - - - - - -
+Dynamische polyexekutive Kombinationen sind Kombinationen, die erstmalig innerhalb der Main-Kombination definiert werden.
+Sie können während eines Skriptes beliebig oft neu definiert werden.
+
+Beispiel: 1.)     {a{}}
+
+
+Statische polyexekutive Kombinationen:
+- - - - - - - - - - - - - - - - - - - 
+Statische polyexekutive Kombinationen sind Kombinationen, die vor der Main-Kombination definiert werden.
+Sie dürfen während eines Skriptes nur dann neu definiert werden, wenn sich auch die neue Definition vor der Main-Kombination befindet.
+Eine Neudefinition ist jedoch unnötig, da nur die Definition gilt, die zuletzt (d.h. vor Eintritt in die Main-Kombination) gegeben ist.
+Innerhalb statischer Kombinationen können problemlos dynamische Kombinationen definiert werden.
+
+Beispiel: 1.)     a{}{}
+          2.)     a{b{}}{}
+          3.)     a{}a{b{}}{}
+
+
+Polyexekutive Kombinationen aufrufen:
+- - - - - - - - - - - - - - - - - - -
+Um eine polyexekutive Kombination aufzurufen, benutzt man den Bezeichner der Kombination gefolgt von einem "&" (ASCII: 038).
+Daraufhin wird der in einer Kombination enthaltene Quelltext ausgeführt und schließlich mit den Anweisungen hinter dem Aufruf weitergemacht.
+Eine Besonderheit bildet der Aufrufoperator in Verbindung mit einem Gültigkeitsoperator (lokal, primäre Parameter, sekundäre Parameter).
+Wird der Aufrufoperator zusammen mit einem dieser Operatoren verwandt, so wird dies als Abbruch gesehen (als Sprung zum Ende des Skriptes).
+
+Beispiel: 1.)     a{}{a&}
+          2.)     a{a&}{a&}
+          3.)     a{b&}b{a&}{a&}
+          4.)     ^&
+          5.)     '&
+          6.)     "&
+
+
+Zuweisungsoperatoren:
+=-=-=-=-=-=-=-=-=-=-=
+Die vorhandenen Zuweisungsoperatoren bilden den Grundstein der Sprache.
+Mit ihnen kann der Wert eines Registers einem anderen übergeben werden, oder es können direkt die Werte 0 und 1 einem Register zugewiesen werden.
+
+
+Zuweisungen:
+------------
+">" (ASCII: 062)
+
+Bei diesem Operator wird der Bezeichner eines Registers, gefolgt vom Zuweisungszeichen, gefolgt vom Bezeichner eines Registers (oder eines Wertes ["0" oder "1"]) benutzt.
+Dem angegebenen Register wird dabei der Wert des anderen Registers (oder des angegebenen Wertes) zugewiesen.
+
+Beispiel: 1.)     a>b
+          2.)     a>.
+          3.)     a>,
+          4.)     [^a>a]
+          5.]     [^a>^b]
+          6.]     a>a
+
+
+NOT-Zuweisungen:
+----------------
+"<" (ASCII: 060)
+
+Bei diesem Operator wird der Bezeichner eines Registers, gefolgt vom Zuweisungszeichen, gefolgt vom Bezeichner eines Registers (oder eines Wertes ["0" oder "1"]) benutzt.
+Dem angegebenen Register wird dabei der Kehrwert des Wertes des anderen Registers (oder des angegebenen Wertes) zugewiesen.
+
+Beispiel: 1.)     a<b (= "b=,a>.b=.a>,")
+          2.)     a<. (= "a>,")
+          3.)     a<, (= "a>.")
+          4.)     [^a<a]
+          5.]     [^a<^b]
+          6.]     a<a
+
+
+Vergleichsoperatoren:
+=-=-=-=-=-=-=-=-=-=-=
+Vergleichsoperatoren sind zum Erzeugen von Wenn-dann-Abfragen gedacht.
+Dabei gibt es zwei verschiedene Formen der Abfrage: Wenn-Dann und Solange-Dann, wobei durch die Solange-Dann-Operatoren direkt Schleifen aufgebaut werden können.
+
+
+Wenn-Abfragen:
+--------------
+"=" (ASCII: 061)
+
+Wenn die angegebene Bedingung erfüllt ist, so wird der nachfolgende Befehl ausgeführt, ansonsten wird er übersprungen.
+Die Bedingung ist genau dann erfüllt, wenn das angegebene Register den gleichen Wert wie das andere Register (bzw. der angegebene Wert) hat.
+Es können entweder zwei Register oder ein Register mit einem Wert verglichen werden.
+Auch komplette Kombinationen (-definitionen) gelten als ein Befehl!
+
+Beispiel: 1.)     a=ba>.
+          2.)     a=aa<a
+          3.)     [^a=a{a>.b>,}]
+          4.)     a=ba{a>,}
+          5.)     a=bb=cd>, (= "a=b{b=cd>,}")
+          6.)     a=b[
+          7.)     a=b]
+
+
+NOT-Wenn-Abfragen:
+------------------
+"!" (ASCII: 033)
+
+Wenn die angegebene Bedingung erfüllt ist, so wird der nachfolgende Befehl ausgeführt, ansonsten wird er übersprungen.
+Die Bedingung ist genau dann erfüllt, wenn das angegebene Register nicht den gleichen Wert wie das andere Register (bzw. der angegebene Wert) hat.
+Es können entweder zwei Register oder ein Register mit einem Wert verglichen werden.
+Auch komplette Kombinationen (-definitionen) gelten als ein Befehl!
+
+Beispiel: 1.)     a!ba>.
+          2.)     a!aa<a
+          3.)     [^a!a{a>.b>,}]
+          4.)     a!ba{a>,}
+          5.)     a!bb!cd>, (= "a!b{b!cd>,}")
+          6.)     a!b[
+          7.)     a!b]
+
+
+Solange-Abfragen:
+-----------------
+"*" (ASCII: 042)
+
+Wenn die angegebene Bedingung erfüllt ist, so wird der nachfolgende Befehl so lange ausgeführt, bis die Bedingung nicht mehr erfüllt ist.
+Die Bedingung ist genau dann erfüllt, wenn das angegebene Register den gleichen Wert wie das andere Register (bzw. der angegebene Wert) hat.
+Es können entweder zwei Register oder ein Register mit einem Wert verglichen werden.
+Auch komplette Kombinationen (-definitionen) gelten als ein Befehl!
+
+Beispiel: 1.)     0>,$*,{9>.$=,9>,}
+          2.)     "a>."a*.{'a>,}
+
+
+NOT-Solange-Abfragen:
+---------------------
+"/" (ASCII: 047)
+
+Wenn die angegebene Bedingung erfüllt ist, so wird der nachfolgende Befehl so lange ausgeführt, bis die Bedingung nicht mehr erfüllt ist.
+Die Bedingung ist genau dann erfüllt, wenn das angegebene Register nicht den gleichen Wert wie das andere Register (bzw. der angegebene Wert) hat.
+Es können entweder zwei Register oder ein Register mit einem Wert verglichen werden.
+Auch komplette Kombinationen (-definitionen) gelten als ein Befehl!
+
+Beispiel: 1.)     0>,$/.{9>.$!.9>,}
+          2.)     "a>,"a/.{'a>.}
+
+
+Speicheroperatoren:
+=-=-=-=-=-=-=-=-=-=
+Die Sprache AlPhAbEt stellt jedem den so genannten QUEACK zur Verfügung.
+Dabei handelt es sich um eine Mischung aus Queue und Stack, der sowohl per First-In-First-Out-, als auch per First-In-Last-Out-Methodik verwaltet werden kann (auch eine Mischung aus beidem ist möglich).
+Wichtig ist, zu beachten, dass sollte der QUEACK leer sein, dieser mit fiktiven Nullen gefüllt ist, sodass Lese- und Verschiebe-Operationen immer eine "0" zurückliefern werden.
+Weiterhin wichtig ist, zu beachten, dass sollte nur ein einziger Wert im QUEACK stehen, dieser, aufgrund des Aufbaus des QUEACKs, sowohl am Anfang, als auch am Ende des QUEACKs steht.
+
+
+Hinzufügen-Anweisungen: (schreiben)
+-----------------------
+";" (ASCII: 059)
+
+Mit dieser Anweisung werden Werte auf dem QUEACK hinzugefügt.
+Der erste Parameter (der immer ein Register sein muss) gibt an, welcher Wert geschrieben werden soll und der zweite Parameter gibt dabei an, ob der Wert an den Anfang oder an das Ende des QUEACKs geschrieben werden soll.
+("0" = "Anfang" ; "1" = "Ende")
+
+Beispiel: 1.)     A>.A;.
+          2.)     A>.A;,
+          3.)     A;B
+
+
+Entfernen-Anweisungen: (lesen)
+----------------------
+":" (ASCII: 058)
+
+Mit dieser Anweisung werden Werte von dem QUEACK entfernt.
+Der Wert, der vom QUEACK entfernt wird, wird dabei in den ersten der beiden Parameter geschrieben.
+Der zweite Parameter gibt dabei wieder an, ob die Aktion am Anfang oder am Ende des QUEACKS ausgeführt werden soll.
+("0" = "Anfang" ; "1" = "Ende")
+Wichtig ist dabei, zu beachten, dass sollte der QUEACK leer sein, kein Fehler ausgeworfen wird, sondern stattdessen einfach der Wert "0" in das Register geschrieben wird, dass als erster Parameter angegeben ist.
+
+Beispiel: 1.)     A>,A;.A>.A:.A=,{0>,9>.}
+          2.)     A>,A:,A=.{0>,9>.}
+
+
+Verschieben-Anweisungen:
+------------------------
+Neben dem Hinzufügen und Entfernen von Werten ist auch das Verschieben von Werten innerhalb des QUEACKs möglich.
+Durch das Verschieben geht zudem (im Vergleich zum Entfernen und sofortigen Wieder-Hinzufügen von Werten) die Information, welcher Wert zuerst auf den QUEACK geschrieben wurde, nicht verloren.
+Zudem wird der Wert, der verschoben wird, in das Register geschrieben, dass als erster Parameter angegeben ist.
+Wichtig ist dabei, zu beachten, dass sollte der QUEACK leer sein, kein Fehler ausgeworfen wird, sondern stattdessen einfach der Wert "0" in das Register geschrieben wird, dass als erster Parameter angegeben ist.
+
+
+vordersten Eintrag verschieben:
+- - - - - - - - - - - - - - - -
+"(" (ASCII: 040)
+
+Mit diesem Operator kann der Wert, der am Anfang des QUEACKs steht, verschoben werden.
+Der zweite Parameter gibt dabei an, ob der Wert an den Anfang oder an das Ende des QUEACKs verschoben werden soll.
+("0" = "Anfang" ; "1" = "Ende")
+
+Beispiel: 1.)     A>,A;.A>.A(.A=,{0>,9>.}
+          2.)     A>,A(,A=.{0>,9>.}
+
+
+hintersten Eintrag verschieben:
+- - - - - - - - - - - - - - - -
+")" (ASCII: 041)
+
+Mit diesem Operator kann der Wert, der am Ende des QUEACKs steht, verschoben werden.
+Der zweite Parameter gibt dabei wieder an, ob der Wert an den Anfang oder an das Ende des QUEACKs verschoben werden soll.
+("0" = "Anfang" ; "1" = "Ende")
+
+Beispiel: 1.)     A>,A;,A>.A).A=,{0>,9>.}
+          2.)     A>,A),A=.{0>,9>.}
+
+
+Prüfen-Anweisungen:
+-------------------
+Zur Verwaltung des QUEACKs stehen noch weitere Operatoren zu Verfügung, mit denen z.B. das systematische iterieren durch den QUEACK ermöglicht wird.
+
+
+ist Speicher leer:
+- - - - - - - - - 
+"_" (ASCII: 095)
+
+Mit diesem Operator ist es möglich, zu ermitteln, ob der QUEACK leer ist, oder nicht.
+Der Befehl selbst stellt dabei eher eine Art Vergleich dar, der das Ergebnis (wahr oder falsch) in das Register schreibt, dass als erster Parameter angegeben ist.
+Der zweite Parameter gibt dabei die eigene "Vermutung" an.
+("0" = "der QUEACK ist nicht leer" ; "1" = "der QUEACK ist leer")
+Stimmt die Wahrheit mit der Vermutung überein, wird eine "1" in das angegebene Register geschrieben, ansonsten eine "0".
+
+Beispiel: 1.)     A_,A=,{0>,9>.}
+          2.)     A;.A_.A=,{0>,9>.}
+
+
+ist Eintrag zuerst eingefügter Eintrag:
+- - - - - - - - - - - - - - - - - - - -
+"#" (ASCII: 035)
+
+Mit diesem Operator wird abgefragt, ob der Eintrag, der durch den zweiten Parameter präzisiert wird, derjenige ist, der zu allererst auf den QUEACK geschrieben wurde.
+("0" = "der Wert am Anfang" ; "1" = "der Wert am Ende")
+Das Ergebnis der Abfrage, wird dabei in das Register geschrieben, dass als erster Parameter angegeben ist.
+("0" = "ist nicht der erste Wert" ; "1" = "ist der erste Wert")
+Von allen Werten, die auf dem QUEACK hinzugefügt werden, wird die Reihenfolge, in der sie hinzugefügt wurden, mitgespeichert.
+Wird ein Wert vom QUEACK entfernt, so wird auch der Wert aus der Reihenfolge gelöscht.
+Das heißt auch, dass sollte ein Wert einmal per "A#.A=,{A:.A;,}" verschoben werden, dieser nicht mehr der erste Eintrag ist, sondern (ganz im Gegenteil!) sogar der letzte.
+Stattdessen sollten die Verschiebe-Methoden genutzt werden ("A#.A=,{A(,}"), die diesen Fehlern vorbeugen, da sie die  Reihenfolge, in der die Werte hinzugefügt wurden, unberührt lässt.
+
+Beispiel: 1.)     A#.A=,{A:.A;,}
+          2.)     A#.A=,{A(,}
+          3.)     A#.A*.{A(,A#.}
+
+
+Binäroperatoren:
+=-=-=-=-=-=-=-=-
+Binäroperatoren dienen der Formulierung logischer Ausdrücke.
+Wichtig ist dabei, zu beachten, dass das Ergebnis eines logischen Ausdruckes IMMER im (ersten) angegebenen Register gespeichert wird.
+
+
+Und-Anweisungen:
+----------------
+"+" (ASCII: 043)
+
+Diese Anweisung führt eine logische Und-Operation aus, d.h.:
+ - sind beide Werte gleich 1, so ist das Ergebnis 1
+ - ist einer der Werte (oder beide) ungleich 1, so ist das Ergebnis 0
+
+Beispiel: 1.)     a>,b>,a+ba=,a& @a& wird aufgerufen@
+          2.)     a>,b>.a+ba=,a& @a& wird NICHT aufgerufen@
+          3.)     a>.b>,a+ba=,a& @a& wird NICHT aufgerufen@
+          4.)     a>.b>.a+ba=,a& @a& wird NICHT aufgerufen@
+          5.)     a+b (= "c>.a=,b=,c>,a>c")
+
+
+Oder-Anweisungen:
+---------------
+"-" (ASCII: 045)
+
+Diese Anweisung führt eine logische Oder-Operation aus, d.h.:
+ - ist einer der Werte (oder beide) gleich 1, so ist das Ergebnis 1
+ - sind beide Werte ungleich 1, so ist das Ergebnis 0
+
+Beispiel: 1.)     a>,b>,a-ba=,a& @a& wird aufgerufen@
+          2.)     a>,b>.a-ba=,a& @a& wird aufgerufen@
+          3.)     a>.b>,a-ba=,a& @a& wird aufgerufen@
+          4.)     a>.b>.a-ba=,a& @a& wird NICHT aufgerufen@
+          5.)     a-b (= "c>.a=,c>,b=,c>,a>c")
+
+
+XOder-Anweisungen:
+----------------
+"%" (ASCII: 037)
+
+Diese Anweisung führt eine logische e(X)klusiv-Oder-Operation aus, d.h.:
+ - sind beide Werte ungleich, so ist das Ergebnis 1
+ - sind beide Werte gleich, so ist das Ergebnis 0
+
+Beispiel: 1.)     a>,b>,a%ba=,a& @a& wird NICHT aufgerufen@
+          2.)     a>,b>.a%ba=,a& @a& wird aufgerufen@
+          3.)     a>.b>,a%ba=,a& @a& wird aufgerufen@
+          4.)     a>.b>.a%ba=,a& @a& wird NICHT aufgerufen@
+          5.)     a%b (= "c>.a!bc>,a>c")
+
+
+Kommentiertes Quelltextbeispiel ("Editor"):
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+@<Editor> (Kevin Niehage)@
+@Hierbei handelt es sich um einen ausführbaren Texteditor, der die sprachlichen Grundstrukturen von AlPhAbEt zeigen soll.@
+
+@Nach (D)ateinamen fragen und diesen setzen (Optionblock basiert auf "| Shorei | AlPhAbEt - Interpreter (0.24)")@
+D{[
+  ^M>'M
+
+  ^0>, @Zugriffe auf Bildschirm umlenken@
+
+  ^M=, { @wenn Schreiben-Modus@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+       }
+
+  @Textausgabe: "Bitte geben sie einen gültigen Dateinamen an:"@
+  ^8>. ^7<. ^6>. ^5>. ^4>. ^3>. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7<. ^6>. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5<. ^4<. ^3<. ^2<. ^1<. ^9<.
+  ^8>. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4>. ^3>. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7>. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6>. ^5<. ^4<. ^3<. ^2>. ^1>. ^9<. ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<.
+  ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<.
+
+  ^M=. { @wenn Lesen-Modus@
+         @Optionsblockausgabe: "infile>"@
+          ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7<. ^6<. ^5<. ^4<. ^3<. ^2>. ^1>. ^\<.
+       }
+  ^M=, { @wenn Schreiben-Modus@
+         @Optionsblockausgabe: "outfile>"@
+          ^8<. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8<. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^\<. ^8>. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8>. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<. ^8>. ^7<. ^6<. ^5<. ^4<. ^3<. ^2>. ^1>. ^\<.
+       }
+
+  ^$>,
+  ^$*, { @solange Dateiname eingegeben wird@
+          ^1>. ^2>. ^3>. ^4>. ^5>. ^6>. ^7>. ^8>. @Wert leeren@
+          ^9>. ^$=, { @wenn Eingabe erfolgreich@
+                       ^9>, @Wert ausgeben@
+                       ^A>^1 ^B>^2 ^C>^3 ^D>^4 ^E>^5 ^F>^6 ^G>^7 ^H>^8 @eingegebenen Wert zwischenspeichern@
+                       ^8<. ^7<. ^6<. ^5<. ^4>. ^3<. ^2>. ^1>. ^\<. @WhiteMark-Zeichen in Optionsblock einfügen@
+                       ^1>^A ^2>^B ^3>^C ^4>^D ^5>^E ^6>^F ^7>^G ^8>^H ^\<. @zwischengespeicherten Wert in Optionsblock einfügen@
+                    }
+       }
+  
+  ^8>. ^7>. ^6<. ^5<. ^4<. ^3<. ^2>. ^1>. ^\<. @Optionsblockausgabe: "<"@
+  ^\>. @Optionsblock ausführen@
+
+  ^M=. { @wenn Lesen-Modus@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+       }
+]}
+
+@Standard-(I)nitialisierung@
+I{[
+  ^A_, @ist QUEACK leer?@
+  ^A/, { @solange QUEACK nicht leer ist@
+          ^B:, @Wert von QUEACK lesen@
+
+          ^A_, @ist QUEACK nun leer?@
+       }
+]}
+
+@(L)ade Text in QUEACK und gebe ihn dann aus@
+L{[
+  "M>'M
+  D&
+
+  ^0>. @Zugriffe auf Datei umlenken@
+
+  ^A>, @Loop-Variable initialisieren@
+  ^A*, {
+          ^9>. @Wert einlesen@
+
+          ^A>^$ @Lese-Erfolg in Loop-Variable übernehmen@
+          ^A=, { @wenn lesen erfolgreich@
+                  '0>, @Zugriffe auf Monitor umlenken@
+                  '1>^1
+                  '2>^2
+                  '3>^3
+                  '4>^4
+                  '5>^5
+                  '6>^6
+                  '7>^7
+                  '8>^8
+                  '9>, @Wert ausgeben@
+
+                  ^A>'$ @Schreib-Erfolg in Loop-Variable übernehmen@
+               }
+       }
+]}
+
+@Abfrage, ob im Lesen- oder Schreiben-(M)odus@
+M{[
+  ^A>'A @Parameterwerte lesen@
+  ^M>'M
+
+  ^0>, @Zugriffe auf Monitor umlenken@
+  ^9>. @Wert lesen@
+
+  ^A>^$ @Lese-Erfolg in Abfrage-Variable übernehmen@
+  ^A=, { @wenn lesen erfolgreich@
+         ^M>, @Resultat initialisieren@
+         ^1=. ^2=. ^3=. ^4=. ^5=. ^6=. ^7=. ^8=. ^M>. @wenn einlesenes Zeichen gleich #0, dann Resultat = 0@
+       }
+
+  'A>^A @Parameterwerte schreiben@
+  'M>^M
+]}
+
+@(R)ead den nächsten Wert und schreibe ihn in die Ausgabe@
+R{[
+  ^0>, @Zugriffe auf Monitor umlenken@
+  ^9>. @Wert einlesen@
+
+  ^$=, ^9>, @wenn lesen erfolgreich, dann Wert ausgeben@
+
+  '1>^1 @Parameterwerte schreiben@
+  '2>^2
+  '3>^3
+  '4>^4
+  '5>^5
+  '6>^6
+  '7>^7
+  '8>^8
+  'A>^$
+]}
+
+@(S)peicher Text aus QUEACK@
+S{[
+  "M>'M
+  D&
+
+  ^0>. @Zugriffe auf Datei umlenken@
+
+  ^A_, @ist QUEACK leer?@
+  ^A/, { @solange QUEACK nicht leer@
+          ^1:. @Werte von QUEACK lesen@
+          ^2:.
+          ^3:.
+          ^4:.
+          ^5:.
+          ^6:.
+          ^7:.
+          ^8:.
+          ^9>, @Wert ausgeben@
+
+          ^A_, @ist QUEACK nun leer?@
+       }
+]}
+
+@(W)rite den nächsten Wert auf den Speicher@
+W{[
+  '1;, @Parameterwerte auf QUEACK schreiben@
+  '2;,
+  '3;,
+  '4;,
+  '5;,
+  '6;,
+  '7;,
+  '8;,
+]}
+
+@Main-Kombination@
+{[
+  I& @initialisieren@
+
+  ^A>. @Werte initialisieren@
+  "A>.
+  ^M>.
+  "M>.
+  M& @Modus lesen@
+  ^A>"A @Parameterwerte lesen@
+  ^M>"M
+
+  ^A=, { @wenn Modus angegeben@
+          ^M=. { @wenn Lesen-Modus@
+                  "M>^M
+                  L& @aus Datei lesen und auf Monitor ausgeben@
+               }
+          ^M=, { @wenn Schreiben-Modus@
+                  ^A>, @Loop-Variable initialisieren@
+                  ^A*, { @solange alles erfolgreich@
+                          ^A>. @Werte initialisieren@
+                          "A>.
+                          R& @Wert von Monitor lesen@
+                          ^A>"A @Parameterwert lesen@
+
+                          ^A=, W& @wenn lesen erfolgreich, dann Wert auf Monitor schreiben@
+                       }
+
+                  "M>^M
+                  S& @alles in Datei schreiben@
+               }
+       }
+]}

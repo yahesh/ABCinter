@@ -1,0 +1,146 @@
+@
+<Turing>
+This script emulates a very rudimentary Turing-Machine
+
+*****
+Turing-Machine in AlPhAbEt
+
+*****
+*****
+
+Turing-Alphabet:
+----------------
+..,.,,., 00101101 [#045] ("-") - write "FALSE" (0) to Tape
+..,.,.,, 00101011 [#043] ("+") - write "TRUE" (1) to Tape
+..,,,,.. 00111100 [#060] ("<") - move left on Tape
+..,,,,,. 00111110 [#062] (">") - move right on Tape
+.,,,,,.. 01111100 [#124] ("|") - do nothing
+
+..,,,,,, 00111111 [#063] ("?") - current cell
+..,...., 00100001 [#033] ("!") - current state
+..,,.... 00110000 [#048] ("0") - "FALSE"
+..,,..., 00110001 [#049] ("1") - "TRUE"
+
+*****
+
+Turing-Initialization:
+----------------------
+..,,.... 00110000 [#048] ("0") - Cell-Initialization
+..,,.... 00110000 [#048] ("0") - State-Initialization
+
+*****
+
+Turing-Finalization:
+----------------------
+Tape will be set to the most left (used) Position
+
+*****
+@
+
+@
+finalize Tape (Register [z, Z] needed)
+shift all Memory-Entries to the right
+@
+f{
+z#.z*.{Z(,z#.}
+}
+
+@
+get current Tape-Entry (Register [a, z, Z] needed)
+if last Memory-Entry is Seperation-Entry then add new Tape-Entry on the right
+touch last Memory-Entry leaving it where it is
+@
+g{
+z#,z=,{Z<,Z;,}a),
+}
+
+@
+initialize Tape (Register [z, Z] needed)
+delete all Tape-Entries
+insert Seperation-Entry
+insert first Tape-Entry
+@
+i{
+z_,z/,{Z:,z_,}Z<,Z;,Z;,
+}
+
+@
+move Left on Tape (Register [z, Z] needed)
+if first Memory-Entry is Seperation-Entry then add new Tape-Entry on the right
+if first Memory-Entry is not Seperation-Entry then shift it to the right
+@
+l{
+z#.z!.{Z>.Z;,}z!,{Z(,}
+}
+
+@
+move Right on Tape (Register [z, Z] needed)
+if last Memory-Entry is Seperation-Entry then add new Tape-Entry on the right
+shift last Memory-Entry to the left
+if last Memory-Entry is Seperation-Entry then add new Tape-Entry on the right
+@
+r{
+z#,z=,{Z<,Z;,}Z).z#,z=,{Z<,Z;,}
+}
+
+@
+set current Tape-Entry (Register [a, z, Z] needed)
+if last Memory-Entry is Seperation-Entry then add new Tape-Entry on the right
+read last Memory-Entry and write new Memory-Entry
+@
+s{
+z#,z=,{Z<,Z;,}Z:,a;,
+}
+
+@ ***** @
+
+@ execute Action @
+3{
+A>.9>.
+A=.$=,1=.2=.3=,4=.5=,6=,7=.8=,{A>,a>.s&}
+A=.$=,1=.2=.3=,4=.5=,6=.7=,8=,{A>,a>,s&}
+A=.$=,1=.2=.3=,4=,5=,6=,7=.8=.{A>,l&}
+A=.$=,1=.2=.3=,4=,5=,6=,7=,8=.{A>,r&}
+A=.$=,1=.2=,3=,4=,5=,6=,7=.8=.{A>,}
+}
+
+@ set State @
+2{
+A>.9>.
+A=.$=,1=.2=.3=,4=.5=.6=.7=.8=,{A>,}
+A=.$=,1=.2=.3=,4=,5=.6=.7=.8=.{A>,S>.}
+A=.$=,1=.2=.3=,4=,5=.6=.7=.8=,{A>,S>,}
+A=,{3&}
+}
+
+@ check Cell @
+1{
+A>.b>.9>.
+A=.$=,1=.2=.3=,4=,5=,6=,7=,8=,{A>,b>,}
+A=.$=,1=.2=.3=,4=,5=.6=.7=.8=.{A>,g&a=.{b>,}}
+A=.$=,1=.2=.3=,4=,5=.6=.7=.8=,{A>,g&a=,{b>,}}
+A=,b=.{9>.9>.}A=,b=,{2&}
+}
+
+@ check State @
+0{
+A>.b>.9>.
+A=.$=,1=.2=.3=,4=.5=.6=.7=.8=,{A>,b>,}
+A=.$=,1=.2=.3=,4=,5=.6=.7=.8=.{A>,S=.{b>,}}
+A=.$=,1=.2=.3=,4=,5=.6=.7=.8=,{A>,S=,{b>,}}
+A=,b=.{9>.9>.9>.}A=,b=,{1&}
+}
+
+@ print Tape @
+P{
+1>.2>.3>,4>,5>.6>.7>.z#,z/,{8:,9>,z#,}
+}
+
+@ Turing-Machine @
+T{
+0>,i&S>.A>,A*,{0&}f&P&
+}
+
+{
+T&
+}

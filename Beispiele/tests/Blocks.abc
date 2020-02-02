@@ -1,0 +1,11 @@
+@<Blocks>@
+@this script reads n bytes and then writes them out in one row@
+@works through memory-residual local registers@
+
+{
+$>, $*, {[^0>, ^9>. $>^$ $=, {^|>,}}
+~*, {]}
+
+$>, $*, {[$>^| $=, {^9>,}}
+~*, {]}
+}

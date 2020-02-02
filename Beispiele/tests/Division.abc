@@ -1,0 +1,87 @@
+@<Division>@
+@This Script divides one number from another - the result has to be bigger or equal to "0"@
+
+{
+0>,
+
+9>.
+$=, { 9>, }
+
+$=, { A>1 B>2 C>2 D>4 E>5 F>6 G>7 H>8 }
+
+$=, { 9>. }
+$=, { 9>, }
+
+$=, { a>1 b>2 c>3 d>4 e>5 f>6 g>7 h>8 }
+
+$=, { Y>. }
+$=, a=. b=. c=. d=. e=. f=. g=. h=. { Y>, }
+
+$=, Y=. { 1>. 2>. 3>. 4>. 5>. 6>. 7>. 8>. }
+$=, Y=, { 1>, 2>, 3>, 4>, 5>, 6>, 7>, 8>, }
+
+a{
+$=, { x>. }
+$=, x=. v=, V=, z=. { v>. z>. x>, }
+$=, x=. v=, V=. z=, { v>. z>. x>, }
+$=, x=. v=. V=, z=. { v>, z>, x>, }
+$=, x=. v=. V=. z=, { v>, z>, x>, }
+}
+
+A{
+$=, { z>. }
+
+v>H V>h a& H>v
+v>G V>g a& G>v
+v>F V>f a& F>v
+v>E V>e a& E>v
+v>D V>d a& D>v
+v>C V>c a& C>v
+v>B V>b a& B>v
+v>A V>a a& A>v
+}
+
+b{
+$=, { x>. }
+$=, x=. v=, z=, { v>. z>, x>, }
+$=, x=. v=. z=, { v>, z>. x>, }
+}
+
+B{
+$=, { z>. }
+
+$=, { x>. }
+$=, x=. 8=, z=. { 8>. z>, x>, }
+$=, x=. 8=. z=. { 8>, z>. x>, }
+$=, x=. 8=, z=, { 8>, z>, x>, }
+
+v>7 b& 7>v
+v>6 b& 6>v
+v>5 b& 5>v
+v>4 b& 4>v
+v>3 b& 3>v
+v>2 b& 2>v
+v>1 b& 1>v
+}
+
+c{
+$=, y=, v=, V=. { y>. }
+$=, y=. v=. V=, { y>, }
+}
+
+C{
+$=, { v>H V>h c& }
+$=, { v>G V>g c& }
+$=, { v>F V>f c& }
+$=, { v>E V>e c& }
+$=, { v>D V>d c& }
+$=, { v>C V>c c& }
+$=, { v>B V>b c& }
+$=, { v>A V>a c& }
+}
+
+$=, Y=. { y>. }
+$=, Y=. { y*. { C& y=. {B& A& }}}
+
+$=, { 9>, }
+}

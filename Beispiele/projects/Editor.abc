@@ -1,0 +1,218 @@
+@<Editor> (Kevin Niehage)@
+@Hierbei handelt es sich um einen ausführbaren Texteditor, der die sprachlichen Grundstrukturen von AlPhAbEt zeigen soll.@
+
+@Nach (D)ateinamen fragen und diesen setzen (Optionblock basiert auf "| Shorei | AlPhAbEt - Interpreter (0.24)")@
+D{[
+  ^M>'M
+
+  ^0>, @Zugriffe auf Bildschirm umlenken@
+
+  ^M=, { @wenn Schreiben-Modus@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+       }
+
+  @Textausgabe: "Bitte geben sie einen gültigen Dateinamen an:"@
+  ^8>. ^7<. ^6>. ^5>. ^4>. ^3>. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7<. ^6>. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5<. ^4<. ^3<. ^2<. ^1<. ^9<.
+  ^8>. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4>. ^3>. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8<. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7>. ^6>. ^5>. ^4>. ^3<. ^2>. ^1>. ^9<.
+  ^8<. ^7>. ^6>. ^5>. ^4>. ^3<. ^2<. ^1>. ^9<. ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^9<.
+  ^8>. ^7<. ^6>. ^5<. ^4<. ^3<. ^2>. ^1>. ^9<. ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<.
+  ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<.
+
+  ^M=. { @wenn Lesen-Modus@
+         @Optionsblockausgabe: "infile>"@
+          ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8>. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<. ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7<. ^6<. ^5<. ^4<. ^3<. ^2>. ^1>. ^\<.
+       }
+  ^M=, { @wenn Schreiben-Modus@
+         @Optionsblockausgabe: "outfile>"@
+          ^8<. ^7<. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8<. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^\<.
+          ^8>. ^7>. ^6<. ^5>. ^4<. ^3<. ^2<. ^1>. ^\<. ^8>. ^7<. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8<. ^7>. ^6>. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<. ^8>. ^7>. ^6<. ^5<. ^4>. ^3<. ^2<. ^1>. ^\<.
+          ^8<. ^7>. ^6<. ^5>. ^4>. ^3<. ^2<. ^1>. ^\<. ^8>. ^7<. ^6<. ^5<. ^4<. ^3<. ^2>. ^1>. ^\<.
+       }
+
+  ^$>,
+  ^$*, { @solange Dateiname eingegeben wird@
+          ^1>. ^2>. ^3>. ^4>. ^5>. ^6>. ^7>. ^8>. @Wert leeren@
+          ^9>. ^$=, { @wenn Eingabe erfolgreich@
+                       ^9>, @Wert ausgeben@
+                       ^A>^1 ^B>^2 ^C>^3 ^D>^4 ^E>^5 ^F>^6 ^G>^7 ^H>^8 @eingegebenen Wert zwischenspeichern@
+                       ^8<. ^7<. ^6<. ^5<. ^4>. ^3<. ^2>. ^1>. ^\<. @WhiteMark-Zeichen in Optionsblock einfügen@
+                       ^1>^A ^2>^B ^3>^C ^4>^D ^5>^E ^6>^F ^7>^G ^8>^H ^\<. @zwischengespeicherten Wert in Optionsblock einfügen@
+                    }
+       }
+  
+  ^8>. ^7>. ^6<. ^5<. ^4<. ^3<. ^2>. ^1>. ^\<. @Optionsblockausgabe: "outfile<"@
+  ^\>. @Optionsblock ausführen@
+
+  ^M=. { @wenn Lesen-Modus@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+          ^8<. ^7>. ^6<. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. ^8>. ^7<. ^6>. ^5<. ^4>. ^3>. ^2>. ^1>. ^9<. @Zeilenumbruch einfügen@
+       }
+]}
+
+@Standard-(I)nitialisierung@
+I{[
+  ^A_, @ist QUEACK leer?@
+  ^A/, { @solange QUEACK nicht leer ist@
+          ^B:, @Wert von QUEACK lesen@
+
+          ^A_, @ist QUEACK nun leer?@
+       }
+]}
+
+@(L)ade Text in QUEACK und gebe ihn dann aus@
+L{[
+  "M>'M
+  D&
+
+  ^0>. @Zugriffe auf Datei umlenken@
+
+  ^A>, @Loop-Variable initialisieren@
+  ^A*, {
+          ^9>. @Wert einlesen@
+
+          ^A>^$ @Lese-Erfolg in Loop-Variable übernehmen@
+          ^A=, { @wenn lesen erfolgreich@
+                  '0>, @Zugriffe auf Monitor umlenken@
+                  '1>^1
+                  '2>^2
+                  '3>^3
+                  '4>^4
+                  '5>^5
+                  '6>^6
+                  '7>^7
+                  '8>^8
+                  '9>, @Wert ausgeben@
+
+                  ^A>'$ @Schreib-Erfolg in Loop-Variable übernehmen@
+               }
+       }
+]}
+
+@Abfrage, ob im Lesen- oder Schreiben-(M)odus@
+M{[
+  ^A>'A @Parameterwerte lesen@
+  ^M>'M
+
+  ^0>, @Zugriffe auf Monitor umlenken@
+  ^9>. @Wert lesen@
+
+  ^A>^$ @Lese-Erfolg in Abfrage-Variable übernehmen@
+  ^A=, { @wenn lesen erfolgreich@
+         ^M>, @Resultat initialisieren@
+         ^1=. ^2=. ^3=. ^4=. ^5=. ^6=. ^7=. ^8=. ^M>. @wenn einlesenes Zeichen gleich #0, dann Resultat = 0@
+       }
+
+  'A>^A @Parameterwerte schreiben@
+  'M>^M
+]}
+
+@(R)ead den nächsten Wert und schreibe ihn in die Ausgabe@
+R{[
+  ^0>, @Zugriffe auf Monitor umlenken@
+  ^9>. @Wert einlesen@
+
+  ^$=, ^9>, @wenn lesen erfolgreich, dann Wert ausgeben@
+
+  '1>^1 @Parameterwerte schreiben@
+  '2>^2
+  '3>^3
+  '4>^4
+  '5>^5
+  '6>^6
+  '7>^7
+  '8>^8
+  'A>^$
+]}
+
+@(S)peicher Text aus QUEACK@
+S{[
+  "M>'M
+  D&
+
+  ^0>. @Zugriffe auf Datei umlenken@
+
+  ^A_, @ist QUEACK leer?@
+  ^A/, { @solange QUEACK nicht leer@
+          ^1:. @Werte von QUEACK lesen@
+          ^2:.
+          ^3:.
+          ^4:.
+          ^5:.
+          ^6:.
+          ^7:.
+          ^8:.
+          ^9>, @Wert ausgeben@
+
+          ^A_, @ist QUEACK nun leer?@
+       }
+]}
+
+@(W)rite den nächsten Wert auf den Speicher@
+W{[
+  '1;, @Parameterwerte auf QUEACK schreiben@
+  '2;,
+  '3;,
+  '4;,
+  '5;,
+  '6;,
+  '7;,
+  '8;,
+]}
+
+@Main-Kombination@
+{[
+  I& @initialisieren@
+
+  ^A>. @Werte initialisieren@
+  "A>.
+  ^M>.
+  "M>.
+  M& @Modus lesen@
+  ^A>"A @Parameterwerte lesen@
+  ^M>"M
+
+  ^A=, { @wenn Modus angegeben@
+          ^M=. { @wenn Lesen-Modus@
+                  "M>^M
+                  L& @aus Datei lesen und auf Monitor ausgeben@
+               }
+          ^M=, { @wenn Schreiben-Modus@
+                  ^A>, @Loop-Variable initialisieren@
+                  ^A*, { @solange alles erfolgreich@
+                          ^A>. @Werte initialisieren@
+                          "A>.
+                          R& @Wert von Monitor lesen@
+                          ^A>"A @Parameterwert lesen@
+
+                          ^A=, W& @wenn lesen erfolgreich, dann Wert auf Monitor schreiben@
+                       }
+
+                  "M>^M
+                  S& @alles in Datei schreiben@
+               }
+       }
+]}

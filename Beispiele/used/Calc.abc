@@ -1,0 +1,236 @@
+A{
+@
+Addition von 2 Zahlen
+Parameter A in "a".."h" und Parameter B in "A".."H"
+Ergebnis C in "a".."h"
+A + B = C
+Kombination "z" muss verfügbar sein
+Register "v", "V", "x", "z" muss verfügbar sein
+@
+
+z{
+x>.
+x=. v=, V=, z=. { v>. z>, x>, }
+x=. v=. V=. z=, { v>, z>. x>, }
+x=. v!V     z=, { v>. z>, x>, }
+x=. v!V     z=. { v>, z>. x>, }
+}
+
+z>.
+
+v>h V>H z& h>v
+v>g V>G z& g>v
+v>f V>F z& f>v
+v>e V>E z& e>v
+v>d V>D z& d>v
+v>c V>C z& c>v
+v>b V>B z& b>v
+v>a V>A z& a>v
+}
+
+D{
+@
+Division von 2 Zahlen
+Parameter A in "a".."h" und Parameter B in "A".."H"
+Ergebnis C in "a".."h"
+A / B = C rest n
+Kombination "u", "v", "w", "x", "y", "z" muss verfügbar sein
+Register "1", "3", "4", "5", "6", "7", "8", "v", "V", "x", "y", "z" muss verfügbar sein
+@
+
+u{
+x>.
+x=. v=, V=, z=. { v>. z>. x>, }
+x=. v=, V=. z=, { v>. z>. x>, }
+x=. v=. V=, z=. { v>, z>, x>, }
+x=. v=. V=. z=, { v>, z>, x>, }
+}
+
+v{
+z>.
+
+v>8 V>H u& 8>v
+v>7 V>G u& 7>v
+v>6 V>F u& 6>v
+v>5 V>E u& 5>v
+v>4 V>D u& 4>v
+v>3 V>C u& 3>v
+v>2 V>B u& 2>v
+v>1 V>A u& 1>v
+}
+
+w{
+x>.
+x=. v=, z=, { v>. z>, x>, }
+x=. v=. z=, { v>, z>. x>, }
+}
+
+x{
+z>.
+
+x>.
+x=. h=, z=. { h>. z>, x>, }
+x=. h=. z=. { h>, z>. x>, }
+
+v>g w& g>v
+v>f w& f>v
+v>e w& e>v
+v>d w& d>v
+v>c w& c>v
+v>b w& b>v
+v>a w& a>v
+}
+
+y{
+y=, v=, V=. { y>. }
+y=. v=. V=, { y>, }
+}
+
+z{
+v>8 V>H y&
+v>7 V>G y&
+v>6 V>F y&
+v>5 V>E y&
+v>4 V>D y&
+v>3 V>C y&
+v>2 V>B y&
+v>1 V>A y&
+}
+
+y>. A=. B=. C=. D=. E=. F=. G=. H=. { y>, }
+
+y=. { 1>a 2>b 3>c 4>d 5>e 6>f 7>g 8>h }
+y=. { a>. b>. c>. d>. e>. f>. g>. h>. }
+y=, { a>, b>, c>, d>, e>, f>, g>, h>, }
+
+y*. { z& y=. { x& v& }}
+}
+
+M{
+@
+Multiplikation von 2 Zahlen
+Parameter A in "a".."h" und Parameter B in "A".."H"
+Ergebnis C in "a".."h"
+A * B = C
+Kombination "y", "z" muss verfügbar sein
+Register "1", "3", "4", "5", "6", "7", "8", "v", "V", "x", "y", "z" muss verfügbar sein
+@
+
+y{
+x>.
+x=. v=, V=, z=. { v>. z>, x>, }
+x=. v=. V=. z=, { v>, z>. x>, }
+x=. v!V     z=, { v>. z>, x>, }
+x=. v!V     z=. { v>, z>. x>, }
+}
+
+z{
+z>.
+
+v>h V>8 y& h>v
+v>g V>7 y& g>v
+v>f V>6 y& f>v
+v>e V>5 y& e>v
+v>d V>4 y& d>v
+v>c V>3 y& c>v
+v>b V>2 y& b>v
+v>a V>1 y& a>v
+}
+
+1>a 2>b 3>c 4>d 5>e 6>f 7>g 8>h
+
+y>.
+
+A=, y=, { z& } A=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+B=, y=, { z& } B=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+C=, y=, { z& } C=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+D=, y=, { z& } D=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+E=, y=, { z& } E=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+F=, y=, { z& } F=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+G=, y=, { z& } G=, { y>, } y=, { a>b b>c c>d d>e e>f f>g g>h h>. }
+H=, y=, { z& } H=, { y>, } y=. { a>. b>. c>. d>. e>. f>. g>. h>. }
+}
+
+O{
+@
+mOdulO von 2 Zahlen
+Parameter A in "a".."h" und Parameter B in "A".."H"
+Ergebnis C in "a".."h"
+A / B = n rest C
+Kombination "w", "x", "y", "z" muss verfügbar sein
+Register "v", "V", "x", "y", "z" muss verfügbar sein
+@
+
+w{
+x>.
+x=. v=, V=, z=. { v>. z>. x>, }
+x=. v=, V=. z=, { v>. z>. x>, }
+x=. v=. V=, z=. { v>, z>, x>, }
+x=. v=. V=. z=, { v>, z>, x>, }
+}
+
+x{
+z>.
+
+v>h V>H w& h>v
+v>g V>G w& g>v
+v>f V>F w& f>v
+v>e V>E w& e>v
+v>d V>D w& d>v
+v>c V>C w& c>v
+v>b V>B w& b>v
+v>a V>A w& a>v
+}
+
+y{
+y=, v=, V=. { y>. }
+y=. v=. V=, { y>, }
+}
+
+z{
+v>h V>H y&
+v>g V>G y&
+v>f V>F y&
+v>e V>E y&
+v>d V>D y&
+v>c V>C y&
+v>b V>B y&
+v>a V>A y&
+}
+
+y>. A=. B=. C=. D=. E=. F=. G=. H=. { y>, }
+
+y=, { a>, b>, c>, d>, e>, f>, g>, h>, }
+
+y*. { z& y=. { x& }}
+}
+
+S{
+@
+Subtraktion von 2 Zahlen
+Parameter A in "a".."h" und Parameter B in "A".."H"
+Ergebnis C in "a".."h"
+A - B = C
+Kombination "z" muss verfügbar sein
+Register "v", "V", "x", "z" muss verfügbar sein
+@
+
+z{
+x>.
+x=. v=, V=, z=. { v>. z>. x>, }
+x=. v=, V=. z=, { v>. z>. x>, }
+x=. v=. V=, z=. { v>, z>, x>, }
+x=. v=. V=. z=, { v>, z>, x>, }
+}
+
+z>.
+
+v>h V>H z& h>v
+v>g V>G z& g>v
+v>f V>F z& f>v
+v>e V>E z& e>v
+v>d V>D z& d>v
+v>c V>C z& c>v
+v>b V>B z& b>v
+v>a V>A z& a>v
+}

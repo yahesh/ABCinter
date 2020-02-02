@@ -1,0 +1,37 @@
+@<SubtractionA>@
+@This Script subtracts one number from another - the result has to be bigger or equal to "0"@
+
+{
+0>,
+
+9>.
+$=, { 9>, }
+
+$=, { A>1 B>2 C>3 D>4 E>5 F>6 G>7 H>8 }
+
+$=, { 9>. }
+$=, { 9>, }
+
+$=, { z>. }
+
+A{
+$=, { x>. }
+$=, x=. v=, V=, z=. { v>. z>. x>, }
+$=, x=. v=, V=. z=, { v>. z>, x>, }
+$=, x=. v=, V=. z=. { v>, z>, x>, }
+$=, x=. v=. V=, z=, { v>. z>. x>, }
+$=, x=. v=. V=, z=. { v>, z>. x>, }
+$=, x=. v=. V=. z=, { v>, z>, x>, }
+}
+
+v>8 V>H A& 8>v
+v>7 V>G A& 7>v
+v>6 V>F A& 6>v
+v>5 V>E A& 5>v
+v>4 V>D A& 4>v
+v>3 V>C A& 3>v
+v>2 V>B A& 2>v
+v>1 V>A A& 1>v
+
+$=, { 9>, }
+}

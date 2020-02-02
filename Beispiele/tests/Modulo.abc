@@ -1,0 +1,64 @@
+@<Modulo>@
+@This Script calculates the modulo-result of one number and another - the result has to be smaller or equal to "255"@
+
+{
+0>,
+
+9>.
+$=, { 9>, }
+
+$=, { a>1 b>2 c>2 d>4 e>5 f>6 g>7 h>8 }
+
+$=, { 9>. }
+$=, { 9>, }
+
+$=, { A>1 B>2 C>3 D>4 E>5 F>6 G>7 H>8 }
+
+$=, { Y>. }
+$=, A=. B=. C=. D=. E=. F=. G=. H=. { Y>, }
+
+$=, Y=. { 1>a 2>b 3>c 4>d 5>e 6>f 7>g 8>h }
+$=, Y=, { 1>, 2>, 3>, 4>, 5>, 6>, 7>, 8>, }
+
+a{
+$=, { x>. }
+$=, x=. v=, V=, z=. { v>. z>. x>, }
+$=, x=. v=, V=. z=, { v>. z>. x>, }
+$=, x=. v=. V=, z=. { v>, z>, x>, }
+$=, x=. v=. V=. z=, { v>, z>, x>, }
+}
+
+A{
+$=, { z>. }
+
+v>8 V>H a& 8>v
+v>7 V>G a& 7>v
+v>6 V>F a& 6>v
+v>5 V>E a& 5>v
+v>4 V>D a& 4>v
+v>3 V>C a& 3>v
+v>2 V>B a& 2>v
+v>1 V>A a& 1>v
+}
+
+b{
+$=, y=, v=, V=. { y>. }
+$=, y=. v=. V=, { y>, }
+}
+
+B{
+$=, { v>8 V>H b& }
+$=, { v>7 V>G b& }
+$=, { v>6 V>F b& }
+$=, { v>5 V>E b& }
+$=, { v>4 V>D b& }
+$=, { v>3 V>C b& }
+$=, { v>2 V>B b& }
+$=, { v>1 V>A b& }
+}
+
+$=, Y=. { y>. }
+$=, Y=. { y*. { B& y=. {A&  }}}
+
+$=, { 9>, }
+}
